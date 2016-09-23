@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#import <jtcalendar/JTCalendar.h>
+
+@interface ViewController : UIViewController<JTCalendarDelegate>
+
+@property (nonatomic, strong) JTCalendarMenuView *calendarMenuView;//菜单
+
+@property (nonatomic, strong) JTHorizontalCalendarView *calendarContentView;//日历
+
+@property (nonatomic, strong) JTCalendarManager *calendarManager;//联系菜单和日历的管理
 
 
 @end
