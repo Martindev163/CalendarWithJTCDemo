@@ -38,6 +38,8 @@
     
     //加载日历和菜单
     [self loadMenuAndCalendar];
+    //加载向前向后按钮
+    [self addPreviousAndNextBtn];
     //显示中文
     _calendarManager.dateHelper.calendar.locale = [NSLocale localeWithLocaleIdentifier:@"zh-CN"];
     
@@ -46,6 +48,35 @@
     [_calendarManager setDate:[NSDate date]];
 }
 
+#pragma mark - 添加向前向后按钮
+-(void)addPreviousAndNextBtn
+{
+    UIButton *previousBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 20, 60, 40)];
+    [previousBtn setTitle:@"向前" forState:UIControlStateNormal];
+    previousBtn.backgroundColor = [UIColor blueColor];
+    [previousBtn addTarget:self action:@selector(turnToPreviousOrNextPageWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+    previousBtn.tag = 101;
+    [self.view addSubview:previousBtn];
+    
+    UIButton *nextBtn = [[UIButton alloc] initWithFrame:CGRectMake(kDeviceWidth-60, 20, 60, 40)];
+    [nextBtn setTitle:@"向后" forState:UIControlStateNormal];
+    nextBtn.backgroundColor = [UIColor blueColor];
+    [nextBtn addTarget:self action:@selector(turnToPreviousOrNextPageWithBtn:) forControlEvents:UIControlEventTouchUpInside];
+    nextBtn.tag = 102;
+    [self.view addSubview:nextBtn];
+}
+
+-(void)turnToPreviousOrNextPageWithBtn:(UIButton *)btn
+{
+    if (btn.tag == 101) {
+        [_calendarContentView loadPreviousPageWithAnimation];
+    }
+    else if (btn.tag == 102)
+    {
+        [_calendarContentView loadNextPageWithAnimation];
+    }
+    
+}
 
 #pragma mark - 加载菜单和日历
 -(void)loadMenuAndCalendar
